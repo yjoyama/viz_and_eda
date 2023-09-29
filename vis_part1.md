@@ -18,6 +18,12 @@ library(tidyverse)
 
 ``` r
 library(ggridges)
+
+# knitr::opts_chunk$set(
+#   fig.width = 6,
+#   fig.asp = .6,
+#   out.width = "90%"
+# )
 ```
 
 Get the data for plotting today.
@@ -349,3 +355,42 @@ weather_df |>
     ## Warning: Removed 1 rows containing missing values (`geom_point()`).
 
 ![](vis_part1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+## saving and embedding plots
+
+``` r
+ggp_weather =
+weather_df |> 
+  ggplot(aes(x = tmin, y = tmax)) +
+  geom_point()
+
+ggp_weather
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+``` r
+ggsave("results/ggp_weather.pdf", ggp_weather)
+```
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+``` r
+ggp_weather
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+``` r
+ggp_weather
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
