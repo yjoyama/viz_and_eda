@@ -89,3 +89,145 @@ ggp_nyc_weather =
 ```
 
 ## Fancy plot
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) +
+  geom_point() +
+  geom_smooth()
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name)) +
+  geom_smooth()
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax)) +
+  geom_smooth()
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax)) +
+  geom_smooth(se = F)
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax)) +
+  geom_point(aes(color = name), alpha = 0.3) + # 70% opaque
+  geom_smooth(se = F)
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-5-5.png)<!-- -->
+
+Plot with facets
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth() +
+  facet_grid(. ~ name)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+ggplot(weather_df, aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth() +
+  facet_grid(name ~ .)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+
+Let’s try a different plot. temps are boring
+
+``` r
+ggplot(weather_df, aes(x = date, y = tmax, color = name)) +
+  geom_point(aes(size = prcp), alpha = 0.3) +
+  geom_smooth() +
+  facet_grid(. ~ name)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+
+    ## Warning: Removed 19 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+try assigning a specific color
+
+``` r
+weather_df |> 
+  filter(name == "CentralPark_NY") |> 
+  ggplot(aes(x = date, y = tmax)) +
+  geom_point(color = "blue") # do not specify color in aes()
+```
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+weather_df |> 
+  filter(name != "CentralPark_NY") |> 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point() 
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
+
+``` r
+weather_df |> 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point(alpha = 0.7, size = 0.5) 
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](vis_part1_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
